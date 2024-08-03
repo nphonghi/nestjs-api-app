@@ -1,0 +1,43 @@
+services:
+  # Define the MySQL service
+  dev-database:
+    image: postgres:15.0
+    container_name: dev-database
+    restart: always
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Abc123456789
+      POSTGRES_DB: testdb
+    networks:
+      - nestjs-network
+  
+  # TEST
+  test-database:
+    image: postgres:15.0
+    container_name: test-database
+    restart: always
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Abc123456789
+      POSTGRES_DB: testdb
+    networks:
+      - nestjs-network
+
+
+networks:
+  nestjs-network:
+
+
+# Create contaner, network, ... from "docker composer" file:
+# -d: detach mode
+# docker compose up -d
+
+# Rollback docker compose
+# docker compose down rm nameContainer --stop --force --volumes
+
+# If want to start only specified services/container:
+# docker compose up -d nameContainer -d
